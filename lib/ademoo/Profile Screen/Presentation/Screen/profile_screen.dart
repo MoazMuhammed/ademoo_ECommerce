@@ -1,3 +1,5 @@
+import 'package:ademoo/ademoo/Profile%20Screen/Presentation/Screen/last_order_screen.dart';
+import 'package:ademoo/ademoo/Profile%20Screen/Presentation/Screen/profile_data_screen.dart';
 import 'package:ademoo/core/utilizes/svg.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -13,7 +15,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   bool ShowSettingsOption = false;
   bool isDark = false;
   String selectedValue = 'English US';
-
 
   @override
   Widget build(BuildContext context) {
@@ -57,15 +58,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 onTap: () {}, child: const AppSVG(assetName: "logout"))
           ],
         ),
-        Divider(),
+        const Divider(),
         SizedBox(
           height: 4.h,
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => LastOrderScreen(),));
+          },
           child: Row(
             children: [
-              AppSVG(
+              const AppSVG(
                 assetName: "order",
                 color: Colors.black,
               ),
@@ -79,8 +82,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     fontWeight: FontWeight.bold,
                     color: Colors.black),
               ),
-              Spacer(),
-              AppSVG(assetName: "headArrow")
+              const Spacer(),
+              const AppSVG(assetName: "headArrow")
             ],
           ),
         ),
@@ -91,7 +94,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           onTap: () {},
           child: Row(
             children: [
-              AppSVG(
+              const AppSVG(
                 assetName: "creditCard",
                 color: Colors.black,
               ),
@@ -105,8 +108,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     fontWeight: FontWeight.bold,
                     color: Colors.black),
               ),
-              Spacer(),
-              AppSVG(assetName: "headArrow")
+              const Spacer(),
+              const AppSVG(assetName: "headArrow")
             ],
           ),
         ),
@@ -114,10 +117,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
           height: 4.h,
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ProfileDataScreen(),
+                ));
+          },
           child: Row(
             children: [
-              AppSVG(
+              const AppSVG(
                 assetName: "profile",
                 color: Colors.black,
               ),
@@ -131,8 +140,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     fontWeight: FontWeight.bold,
                     color: Colors.black),
               ),
-              Spacer(),
-              AppSVG(assetName: "headArrow")
+              const Spacer(),
+              const AppSVG(assetName: "headArrow")
             ],
           ),
         ),
@@ -147,7 +156,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           },
           child: Row(
             children: [
-              AppSVG(
+              const AppSVG(
                 assetName: "settings",
                 color: Colors.black,
               ),
@@ -161,73 +170,72 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     fontWeight: FontWeight.bold,
                     color: Colors.black),
               ),
-              Spacer(),
-              AppSVG(assetName: "headArrow")
+              const Spacer(),
+              const AppSVG(assetName: "headArrow")
             ],
           ),
         ),
         AnimatedOpacity(
-          duration: Duration(milliseconds: 500),
-          // Adjust the duration as needed
-          opacity: ShowSettingsOption ? 1.0 : 0.0,
-          child:
-          Column(
-            children: [
-              CheckboxListTile(
-                title: Text(
-                  "Dark Mode",
-                  style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green.shade900),
+            duration: const Duration(milliseconds: 500),
+            // Adjust the duration as needed
+            opacity: ShowSettingsOption ? 1.0 : 0.0,
+            child: Column(
+              children: [
+                CheckboxListTile(
+                  title: Text(
+                    "Dark Mode",
+                    style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green.shade900),
+                  ),
+                  value: isDark,
+                  activeColor: Colors.green,
+                  checkColor: Colors.white,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      isDark = value!;
+                    });
+                  },
                 ),
-                value: isDark,
-                activeColor: Colors.green,
-                checkColor: Colors.white,
-                onChanged: (bool? value) {
-                  setState(() {
-                    isDark = value!;
-                  });
-                },
-              ),
-              Padding(
-                padding:  EdgeInsets.symmetric(horizontal: 17.sp),
-                child: Row(
-                  children: [
-                    Text(
-                      "Language",
-                      style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.green.shade900),
-                    ),
-                    Spacer(),
-                    DropdownButton<String>(
-                      value: selectedValue,
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          selectedValue = newValue!;
-                        });
-                      },
-                      items: <String>[
-                        'Arabic',
-                        'English US',
-                        'Germany',
-                        'Italy',
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  ],
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 17.sp),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Language",
+                        style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green.shade900),
+                      ),
+                      const Spacer(),
+                      DropdownButton<String>(
+                        value: selectedValue,
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            selectedValue = newValue!;
+                          });
+                        },
+                        items: <String>[
+                          'Arabic',
+                          'English US',
+                          'Germany',
+                          'Italy',
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ) // Replace with the widget you want to display
-        ),
-        Spacer(),
+              ],
+            ) // Replace with the widget you want to display
+            ),
+        const Spacer(),
         Container(
           padding: EdgeInsets.symmetric(vertical: 16.sp, horizontal: 20.sp),
           decoration: BoxDecoration(
@@ -250,7 +258,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ],
           ),
         ),
-        SizedBox(height: 5.h,)
+        SizedBox(
+          height: 5.h,
+        )
       ],
     );
   }
